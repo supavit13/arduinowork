@@ -10,7 +10,7 @@ SoftwareSerial controller(RX,TX);
 void setup() {
 
   Serial.begin(9600);
-  Serial.println("hiX");
+  Serial.println("hiY");
   controller.begin(115200);
   pinMode(LED,OUTPUT);
   pinMode(SW_S,INPUT_PULLUP);
