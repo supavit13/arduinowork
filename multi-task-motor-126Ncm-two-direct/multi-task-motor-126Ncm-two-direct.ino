@@ -5,14 +5,15 @@ Thread worker2 = Thread();
 
 #define CLK_A 13
 #define CW_A 12
+#define CW_A_2 10
 #define EN_A 11
-#define LIMIT_L_A 9
-#define LIMIT_R_A 10
-#define CLK_B 4
-#define CW_B 5
-#define EN_B 6
-#define LIMIT_L_B 8
-#define LIMIT_R_B 7
+#define LIMIT_L_A 8
+#define LIMIT_R_A 9
+#define CLK_B 3
+#define CW_B 4
+#define EN_B 5
+#define LIMIT_L_B 7
+#define LIMIT_R_B 6
 
 int rotationA = 0;
 int rotationB = 0;
@@ -41,11 +42,13 @@ void task1(){
   int limit_r = digitalRead(LIMIT_R_A);
   if(limit_l == LOW && command == '1'){
     digitalWrite(CW_A, LOW);
+    digitalWrite(CW_A_2,HIGH);
     motorStepA(1600,200);
     command = '0';
     rotationA = 1;   
   }else if(limit_r == LOW && command == '2'){
-    digitalWrite(CW_A , HIGH); //ccw     
+    digitalWrite(CW_A , HIGH); //ccw  
+    digitalWrite(CW_A_2,LOW);   
     motorStepA(1600,200);  
     command = 0;
     rotationA = 1;
@@ -64,7 +67,7 @@ void task2(){
   int limit_l = digitalRead(LIMIT_L_B);
   int limit_r = digitalRead(LIMIT_L_B);
   if(limit_l == LOW && command == '1'){
-    digitalWrite(CW_A, HIGH);
+    digitalWrite(CW_B, HIGH);
     motorStepB(1600,200);
     command = '0';
     rotationB = 1;   
@@ -94,12 +97,14 @@ void setup() {
 
   pinMode(CLK_A,OUTPUT);
   pinMode(CW_A,OUTPUT);
+  pinMode(CW_A_2,OUTPUT);
   pinMode(LIMIT_L_A, INPUT_PULLUP);
   pinMode(LIMIT_R_A, INPUT_PULLUP);
 
   pinMode(EN_A,OUTPUT);
   digitalWrite(EN_A,LOW);
   digitalWrite(CW_A,LOW);
+  digitalWrite(CW_A_2,HIGH);
 
   pinMode(CLK_B,OUTPUT);
   pinMode(CW_B,OUTPUT);
