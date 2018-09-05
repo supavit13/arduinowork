@@ -17,7 +17,7 @@ Thread worker2 = Thread();
 int rotationA = 0;
 int rotationB = 0;
 char command = '0';
-void motorStepA( int MAX,int acc = 800){
+void motorStepA( int MAX,int acc = 200){
 
    for(int x = 0; x < MAX; x++) {
         digitalWrite(CLK_A,HIGH);
@@ -26,7 +26,7 @@ void motorStepA( int MAX,int acc = 800){
         delayMicroseconds(acc);
       }
 }
-void motorStepB( int MAX,int acc = 800){
+void motorStepB( int MAX,int acc = 200){
 
    for(int x = 0; x < MAX; x++) {
         digitalWrite(CLK_B,HIGH);
@@ -41,12 +41,12 @@ void task1(){
   int limit_r = digitalRead(LIMIT_R_A);
   if(limit_l == LOW && command == '1'){
     digitalWrite(CW_A, LOW);
-    motorStepA(3200,900);
+    motorStepA(3200,300);
     command = '0';
     rotationA = 1;   
   }else if(limit_r == LOW && command == '2'){
     digitalWrite(CW_A , HIGH); //ccw     
-    motorStepA(3200,900);  
+    motorStepA(3200,300);  
     command = 0;
     rotationA = 1;
   }else if(limit_l == LOW){
@@ -65,12 +65,12 @@ void task2(){
   int limit_r = digitalRead(LIMIT_L_B);
   if(limit_l == LOW && command == '1'){
     digitalWrite(CW_A, HIGH);
-    motorStepB(3200,900);
+    motorStepB(3200,300);
     command = '0';
     rotationB = 1;   
   }else if(limit_r == LOW && command == '2'){
     digitalWrite(CW_B , LOW); //ccw     
-    motorStepB(3200,900);  
+    motorStepB(3200,300);  
     command = 0;
     rotationB = 1;
   }else if(limit_l == LOW){
